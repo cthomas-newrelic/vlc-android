@@ -12,6 +12,8 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
+import com.newrelic.agent.android.NewRelic;
+
 import androidx.appcompat.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -155,6 +157,7 @@ public class ExtensionsManager {
                     item.setIcon(activity.getPackageManager().getApplicationIcon(extension.componentName().getPackageName()));
                 } catch (PackageManager.NameNotFoundException e) {
                     item.setIcon(R.drawable.icon);
+                    NewRelic.recordHandledException(e);
                 }
         }
     }

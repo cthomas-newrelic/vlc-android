@@ -3,17 +3,21 @@ buildscript {
     ext.android_plugin_version = '7.2.0'
     ext.kotlin_version = '1.6.20'
     ext.kotlinx_version = '1.6.0'
+    ext.newrelic_version = '6.9.0'
+    ext.newrelic_snapshot = '2616'
     repositories {
         flatDir dirs: "gradle/plugins"
         google()
         mavenCentral()
         mavenLocal()
+        maven { url uri("https://oss.sonatype.org/content/repositories/comnewrelic-$newrelic_snapshot") }
    }
     dependencies {
         classpath "com.android.tools.build:gradle:$android_plugin_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.vanniktech:gradle-maven-publish-plugin:0.14.2'
+        classpath "com.newrelic.agent.android:agent-gradle-plugin:$newrelic_version"
     }
 }
 
@@ -21,6 +25,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
+        maven { url uri("https://oss.sonatype.org/content/repositories/comnewrelic-$newrelic_snapshot") }
     }
     tasks.withType(Javadoc) {
         // Ignores errors from mavenAndroidJavadocs task
@@ -41,7 +47,7 @@ ext {
     versionCode = 3040500
     libvlcVersion = '3.5.0-eap10'
     medialibraryVersion = '0.12.0-eap10'
-    minSdkVersion = 17
+    minSdkVersion = 24
     targetSdkVersion = 30
     compileSdkVersion = 31
     androidxLegacyVersion = '1.0.0'

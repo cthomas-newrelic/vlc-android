@@ -10,6 +10,7 @@ import android.net.Uri
 import android.os.Build
 import android.util.Log
 import android.view.Surface
+import com.newrelic.agent.android.NewRelic
 import kotlinx.coroutines.*
 import org.videolan.libvlc.FactoryManager
 import org.videolan.libvlc.MediaPlayer
@@ -78,9 +79,11 @@ class PreviewVideoInputService : TvInputService(), CoroutineScope by MainScope()
                 } catch (e: IOException) {
                     Log.e(TAG, "Could not prepare media player", e)
                     notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_UNKNOWN)
+                    NewRelic.recordHandledException(e)
                 } catch (e: IllegalStateException) {
                     Log.e(TAG, "Could not prepare media player", e)
                     notifyVideoUnavailable(TvInputManager.VIDEO_UNAVAILABLE_REASON_UNKNOWN)
+                    NewRelic.recordHandledException(e)
                 }
             }
             return true

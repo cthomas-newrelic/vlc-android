@@ -32,6 +32,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import com.newrelic.agent.android.FeatureFlag
+import com.newrelic.agent.android.NewRelic
+import com.newrelic.agent.android.logging.AgentLog
 import org.videolan.libvlc.util.AndroidUtil
 import org.videolan.medialibrary.interfaces.Medialibrary
 import org.videolan.resources.ACTIVITY_RESULT_OPEN
@@ -84,6 +87,16 @@ class MainActivity : ContentActivity(),
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        NewRelic.enableFeature(FeatureFlag.NativeReporting)
+        NewRelic.setMaxEventBufferTime(60)
+        NewRelic.setMaxEventPoolSize(512)
+        NewRelic.withApplicationToken("AA98dc1b9280aa520777b3c03aba6c0c527b52ea47-NRMA")
+            .withLoggingEnabled(true)
+            .withLogLevel(AgentLog.DEBUG)
+            .withApplicationBuild("New Relic instrumented")
+            .start(this.getApplicationContext());
+
         Util.checkCpuCompatibility(this)
         /*** Start initializing the UI  */
         setContentView(R.layout.main)

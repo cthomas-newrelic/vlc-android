@@ -192,6 +192,9 @@ dependencies {
     implementation "androidx.palette:palette-ktx:1.0.0"
     implementation 'com.jaredrummler:colorpicker:1.1.0'
 
+    implementation "com.newrelic.agent.android:android-agent:$newrelic_version"
+    implementation "com.newrelic.agent.android:agent-ndk:1.0.+"
+
     // Tests
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"

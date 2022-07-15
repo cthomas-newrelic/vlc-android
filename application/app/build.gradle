@@ -1,7 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'newrelic'
+
 android {
-    compileOptions {
+    compileOptions {    
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -140,6 +142,10 @@ android {
 dependencies {
     implementation project(':application:vlc-android')
     implementation project(':application:television')
+
+    implementation "com.newrelic.agent.android:android-agent:$newrelic_version"
+    implementation "com.newrelic.agent.android:agent-ndk:1.+"
+
     testImplementation project(':application:television')
 
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
